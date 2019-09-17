@@ -32,7 +32,7 @@ custom_fonts/bold_font = ExtResource( 2 )
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
 bbcode_text = "Hello [color=#bada55]my[/color] [b]fucking[/b] [color=red]world[/color]"
-text = "Hello my fucking world"
+text = "hello"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 540.0

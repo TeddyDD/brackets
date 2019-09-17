@@ -31,6 +31,7 @@ func set_done(value):
 			chars = t.text.length(),
 			mistakes = mistakes
 		}
+		get_tree().change_scene("res://scenes/Stats.tscn")
 
 func _on_input_text_changed(new_text : String):
 	compare(t, new_text)
