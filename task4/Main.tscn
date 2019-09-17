@@ -42,13 +42,37 @@ bbcode_enabled = true
 bbcode_text = "Hello [color=#bada55]my[/color] [b]fucking[/b] [color=red]world[/color]"
 text = "Hello my fucking world"
 
-[node name="input" type="LineEdit" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 540.0
 margin_right = 1004.0
 margin_bottom = 580.0
+
+[node name="input" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+margin_right = 700.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 context_menu_enabled = false
 caret_blink = true
+
+[node name="Panel" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 704.0
+margin_right = 1004.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 300, 0 )
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 293.0
+margin_bottom = 33.0
+
+[node name="stats" type="Label" parent="VBoxContainer/HBoxContainer/Panel/CenterContainer"]
+margin_left = 20.0
+margin_top = 6.0
+margin_right = 266.0
+margin_bottom = 20.0
+text = "Time: 13s Errors 100 Completed 100%"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -64,6 +88,6 @@ margin_right = 532.0
 margin_bottom = 339.0
 custom_fonts/font = SubResource( 1 )
 text = "3"
-[connection signal="text_changed" from="VBoxContainer/input" to="." method="_on_input_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/input" to="." method="_on_input_text_changed"]
 [connection signal="last_timeout" from="CenterContainer/Countdown Timer" to="." method="_on_Countdown_Timer_last_timeout"]
 [connection signal="timeout" from="CenterContainer/Countdown Timer" to="." method="_on_Countdown_Timer_timeout"]
