@@ -6,13 +6,17 @@ onready var label := $CenterContainer/countdown
 onready var status := $VBoxContainer/HBoxContainer/Panel/CenterContainer/stats
 onready var timer := $"CenterContainer/Countdown Timer"
 
-var test = """It was extremely hot one day so some of us took a nap. Our schoolmaster scolded us. 'We went to dreamland to meet the ancient sages the same as Confucius did,' we explained. 'What was the message from those sages?' our schoolmaster demanded. One of us replied: 'We went to dreamland and met the sages and asked them if our schoolmaster came there every afternoon, but they said they had never seen any such fellow."""
+# internal variables 
+
+var test = "some short text"
 var t : Text
 var buffer = ""
 var mistakes = 0
 var _last_entered = ""
+var done = false
 
 func _ready():
+#	input.editable = false
 	input.grab_focus()
 	t = Text.new(test)
 	display.bbcode_text = t.bbcode
@@ -20,12 +24,14 @@ func _ready():
 func _on_input_text_changed(new_text : String):
 	compare(t, new_text)
 	display.bbcode_text = t.bbcode
-	update_status()
 	if new_text.ends_with(" "):
 		accept(t, new_text)
+	update_status()
 		
 func compare(t : Text, new_text : String):
 	var current = buffer + new_text
+	if current.length() > t.text.length():
+		current = current.substr(0, t.text.length())
 	var correct = 0
 	var incorrect = 0
 	var a = t.accepted
@@ -41,22 +47,30 @@ func compare(t : Text, new_text : String):
 	t.incorrect = incorrect
 	_last_entered = new_text
 	$debug.text = str(\
-		t.accepted, " ",
-		t.correct, " ",
-		t.incorrect, " "
+		t.accepted, " acc ",
+		t.correct, " corr ",
+		t.incorrect, " incor ",
+		t.text.length(), " len ",
+		done, " ",
+		"Buf ", buffer, " "
 	)
-	
-	
+
+# mark part of text as accepted and remove it from
+# input line
 func accept(t : Text, new_text : String):
 	if t.incorrect != 0:
 		return
 	buffer += new_text
 	t.accepted += new_text.length()
 	input.text = ""
-	
+	# this is gamedev, hacks are allowed :P
+	if t.accepted >= t.size: 
+		done = true
+	compare(t, "")
 	
 func update_status():
-	status.text = "Mistakes: %s" % mistakes
+	var completed = min(round(float(t.accepted) / t.text.length() * 100.0), 100.0)
+	status.text = "Completed: %s%% Mistakes: %s" % [str(completed), mistakes]
 
 # Start countdown
 
@@ -65,6 +79,7 @@ func _on_Countdown_Timer_timeout():
 
 func _on_Countdown_Timer_last_timeout():
 	label.visible = false
+	input.editable = true
 
 # Wrapper for string that outputs BBCode
 # YAY BBCode. Like in 2001 on web forums :D
