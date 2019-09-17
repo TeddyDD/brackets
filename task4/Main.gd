@@ -8,18 +8,29 @@ onready var timer := $"CenterContainer/Countdown Timer"
 
 # internal variables 
 
-var test = "some short text"
+var task_text = "some text"
 var t : Text
 var buffer = ""
 var mistakes = 0
 var _last_entered = ""
-var done = false
+var done = false setget set_done
+var time
 
 func _ready():
+	task_text = global.text
 #	input.editable = false
-	input.grab_focus()
-	t = Text.new(test)
+	t = Text.new(task_text)
 	display.bbcode_text = t.bbcode
+	time = OS.get_system_time_msecs()
+	
+func set_done(value):
+	done = value
+	if done:
+		global.result = {
+			time = (OS.get_system_time_msecs() - time) / 1000.0,
+			chars = t.text.length(),
+			mistakes = mistakes
+		}
 
 func _on_input_text_changed(new_text : String):
 	compare(t, new_text)
@@ -65,7 +76,7 @@ func accept(t : Text, new_text : String):
 	input.text = ""
 	# this is gamedev, hacks are allowed :P
 	if t.accepted >= t.size: 
-		done = true
+		self.done = true
 	compare(t, "")
 	
 func update_status():
@@ -80,6 +91,7 @@ func _on_Countdown_Timer_timeout():
 func _on_Countdown_Timer_last_timeout():
 	label.visible = false
 	input.editable = true
+	input.grab_focus()	
 
 # Wrapper for string that outputs BBCode
 # YAY BBCode. Like in 2001 on web forums :D
@@ -87,8 +99,8 @@ class Text:
 	# GDScript is dynamically typed but has
 	# optional static type checking (like Python)
 	var text : String
-	var correct := 2
-	var incorrect := 2
+	var correct := 0
+	var incorrect := 0
 	var accepted = 0
 	var bbcode : String setget ,get_bbcode
 	var size : int setget ,get_size

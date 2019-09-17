@@ -1,18 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://fonts/inter-bold.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/inter.tres" type="DynamicFont" id=3]
 [ext_resource path="res://scenes/Countdown Timer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://fonts/Inter-Bold.ttf" type="DynamicFontData" id=5]
-
-[sub_resource type="DynamicFont" id=1]
-size = 64
-outline_size = 2
-outline_color = Color( 0.866667, 0.0666667, 0.0666667, 1 )
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 5 )
+[ext_resource path="res://fonts/title.tres" type="DynamicFont" id=5]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -86,7 +78,7 @@ margin_left = 491.0
 margin_top = 261.0
 margin_right = 532.0
 margin_bottom = 339.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 5 )
 text = "3"
 
 [node name="debug" type="Label" parent="."]
