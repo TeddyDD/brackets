@@ -88,6 +88,10 @@ margin_right = 532.0
 margin_bottom = 339.0
 custom_fonts/font = SubResource( 1 )
 text = "3"
+
+[node name="debug" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/input" to="." method="_on_input_text_changed"]
 [connection signal="last_timeout" from="CenterContainer/Countdown Timer" to="." method="_on_Countdown_Timer_last_timeout"]
 [connection signal="timeout" from="CenterContainer/Countdown Timer" to="." method="_on_Countdown_Timer_timeout"]
