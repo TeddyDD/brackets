@@ -1,19 +1,26 @@
 extends Control
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	var result = global.result
-	global.result = null
-	$PanelContainer/CenterContainer/result.text = "CPM: %s\nMistakes %d"\
-	% [result.chars / (result.time / 60), result.mistakes]
 	global.read_save()
-	global.results.append(result)
+	var result = global.result
+	if result:
+		global.results.append(result)
 	global.write_save()
-
+	if global.results.empty():
+		return
+	result = global.results[-1]
+	$PanelContainer/hbox/HBoxContainer/result.bbcode_text = \
+	"Recent game\n[color=#0fb2d8]CPM: %s[/color]\n[color=#d80f93]Mistakes %d[/color]"\
+	% [result.chars / (result.time / 60), result.mistakes]
+	global.result = null
+	
+	var cpms = []
+	var mistakes = []
+	for e in global.results:
+		mistakes.append(e.mistakes)
+		cpms.append(e.chars / (e.time / 60))
+	$PanelContainer/hbox/HBoxContainer/VBoxContainer/cpm.points = cpms
+	$PanelContainer/hbox/HBoxContainer/VBoxContainer/mistakes.points = mistakes
 
 func _on_menu_pressed():
 	get_tree().change_scene("res://Menu.tscn")

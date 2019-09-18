@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Stats.gd" type="Script" id=1]
 [ext_resource path="res://fonts/inter.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/Graph.tscn" type="PackedScene" id=3]
 
 [node name="stats" type="Control"]
 anchor_right = 1.0
@@ -12,30 +13,58 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="CenterContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="hbox" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 593.0
 
-[node name="result" type="Label" parent="PanelContainer/CenterContainer"]
-margin_top = 198.0
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/hbox"]
 margin_right = 1010.0
-margin_bottom = 294.0
+margin_bottom = 492.0
 size_flags_horizontal = 3
-size_flags_vertical = 6
-custom_fonts/font = ExtResource( 2 )
-text = "Foo
-Bar
-Baz"
-align = 1
-valign = 1
+size_flags_vertical = 3
 
-[node name="menu" type="Button" parent="PanelContainer/CenterContainer"]
+[node name="result" type="RichTextLabel" parent="PanelContainer/hbox/HBoxContainer"]
+margin_right = 503.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/hbox/HBoxContainer"]
+margin_left = 507.0
+margin_right = 1010.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="cpm" parent="PanelContainer/hbox/HBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 503.0
+margin_bottom = 244.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+fg = Color( 0.0588235, 0.698039, 0.847059, 1 )
+
+[node name="mistakes" parent="PanelContainer/hbox/HBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 248.0
+margin_right = 503.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bg = Color( 0.25098, 0.0431373, 0.105882, 1 )
+fg = Color( 0.847059, 0.0588235, 0.576471, 1 )
+
+[node name="menu" type="Button" parent="PanelContainer/hbox"]
 margin_top = 496.0
 margin_right = 1010.0
 margin_bottom = 586.0
 rect_min_size = Vector2( 0, 90 )
 custom_fonts/font = ExtResource( 2 )
 text = "Menu"
-[connection signal="pressed" from="PanelContainer/CenterContainer/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="PanelContainer/hbox/menu" to="." method="_on_menu_pressed"]

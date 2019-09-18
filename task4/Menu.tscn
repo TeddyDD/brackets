@@ -54,3 +54,4 @@ rect_min_size = Vector2( 200, 90 )
 custom_fonts/font = ExtResource( 3 )
 text = "Statistics"
 [connection signal="pressed" from="VBoxContainer/play" to="." method="play"]
+[connection signal="pressed" from="VBoxContainer/stats" to="." method="stats"]

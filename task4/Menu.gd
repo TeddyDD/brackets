@@ -6,7 +6,7 @@ func _ready():
 func random_text() -> String:
 	randomize()
 	var f := File.new() as File
-	f.open("res://data/quotes.txt", File.READ)
+	f.open("res://data/langs.txt", File.READ)
 	var lines := f.get_as_text()
 	var arr := lines.split("\n", false)
 	f.close()
@@ -28,4 +28,4 @@ func play():
 	get_tree().change_scene("res://Main.tscn")
 	
 func stats():
-	pass
+	get_tree().change_scene("res://scenes/Stats.tscn")
