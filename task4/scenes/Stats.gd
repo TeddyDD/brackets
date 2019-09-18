@@ -10,6 +10,9 @@ func _ready():
 	global.result = null
 	$PanelContainer/CenterContainer/result.text = "CPM: %s\nMistakes %d"\
 	% [result.chars / (result.time / 60), result.mistakes]
+	global.read_save()
+	global.results.append(result)
+	global.write_save()
 
 
 func _on_menu_pressed():
